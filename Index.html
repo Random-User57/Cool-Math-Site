@@ -170,59 +170,17 @@
         // AUTOMATED ELEVENTY COLLECTION COMPILER
         // This structural array builds itself whenever CloudCannon updates.
         // ========================================================
+                // ========================================================
+        // AUTOMATED ELEVENTY COLLECTION COMPILER
+        // This structural array builds itself whenever CloudCannon updates.
+        // ========================================================
         const customFiles = [
-            {% for file in collections.all %}
-                {% if file.filePathStem contains "/games/" and file.filePathStem endsWith "/index" %}
-                    { 
-                        name: "{{ file.filePathStem | replace('/games/', '') | replace('/index', '') | replace('-', ' ') | capitalize }}", 
-                        path: ".{{ file.url }}index.html" 
-                    },
-                {% endif %}
-            {% endfor %}
-        ];
-
-        // Unique deduplication safeguard to handle subfolder nesting configurations
-        const uniqueFiles = Array.from(new Set(customFiles.map(f => f.path)))
-            .map(path => customFiles.find(f => f.path === path));
-
-        // Handles clean static rendering of text nodes
-        function displayFiles(filesToRender) {
-            const listContainer = document.getElementById('fileList');
-            listContainer.innerHTML = '';
-            
-            if (filesToRender.length === 0) {
-                listContainer.innerHTML = `<div class="no-results">No matching files found.</div>`;
-                return;
-            }
-
-            filesToRender.forEach(file => {
-                const li = document.createElement('li');
-                li.className = 'game-item';
-                li.innerHTML = `<a href="${file.path}">${file.name}</a> <span>➔</span>`;
-                listContainer.appendChild(li);
-            });
-        }
-
-        // Responsive query routing for live text matches
-        function filterFiles() {
-            const query = document.getElementById('searchBar').value.toLowerCase();
-            const filtered = uniqueFiles.filter(file => file.name.toLowerCase().includes(query));
-            displayFiles(filtered);
-        }
-
-        // Simple built-in proxy framework redirection logic
-        function launchProxy() {
-            let targetUrl = document.getElementById('proxyUrl').value.trim();
-            if (!targetUrl) return;
-            if (!/^https?:\/\//i.test(targetUrl)) {
-                targetUrl = 'https://' + targetUrl;
-            }
-            const proxyGateway = "https://images" + Math.floor(Math.random() * 10) + "://googleusercontent.com" + encodeURIComponent(targetUrl);
-            window.open(proxyGateway, '_blank');
-        }
-
-        // Load complete catalog array immediately
-        displayFiles(uniqueFiles);
-    </script>
-</body>
-</html>
+    {% for file in collections.all %}
+        {% if file.filePathStem contains "/games/" and file.filePathStem endsWith "/index" %}
+            { 
+                name: "{{ file.filePathStem | replace('/games/', '') | replace('/index', '') | replace('-', ' ') | capitalize }}", 
+                path: ".{{ file.url }}index.html" 
+            },
+        {% endif %}
+    {% endfor %}
+];
