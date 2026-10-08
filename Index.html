@@ -166,21 +166,14 @@
     </div>
 
     <script>
-        // ========================================================
-        // AUTOMATED ELEVENTY COLLECTION COMPILER
-        // This structural array builds itself whenever CloudCannon updates.
-        // ========================================================
-                // ========================================================
-        // AUTOMATED ELEVENTY COLLECTION COMPILER
-        // This structural array builds itself whenever CloudCannon updates.
-        // ========================================================
         const customFiles = [
-    {% for file in collections.all %}
-        {% if file.filePathStem contains "/games/" and file.filePathStem endsWith "/index" %}
-            { 
-                name: "{{ file.filePathStem | replace('/games/', '') | replace('/index', '') | replace('-', ' ') | capitalize }}", 
-                path: ".{{ file.url }}index.html" 
-            },
-        {% endif %}
-    {% endfor %}
-];
+            {% for file in collections.all %}
+                {% if file.filePathStem contains "/games/" %}
+                    { 
+                        name: "{{ file.filePathStem | replace: '/games/', '' | replace: '/index', '' | replace: '-', ' ' | capitalize }}", 
+                        path: ".{{ file.url }}index.html" 
+                    },
+                {% endif %}
+            {% endfor %}
+        ];
+        
